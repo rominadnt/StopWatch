@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>StopWatch</title>
+        <link rel="stylesheet" href="stopwatch.css" />
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <title>StopWatch</title>
-    <link rel="stylesheet" href="stopwatch.css">
-</head>
+    <body>
+        <div class="container">
+            <div class="watch">
+                <div class="outer">
+                    <div class="inner">
+                        <span class="text">00:00:00</span>
+                    </div>
+                </div>
 
-<body>
-
-    <div class="container">
-
-        <div class="watch">
-
-            <div class="outer">
-                <div class="inner">
-                    <span class=" text hour">00:</span>
-                    <span class=" text min">&nbsp;00:</span>
-                    <span class=" text sec">&nbsp;00</span>
+                <div class="btns">
+                    <button class="time toggle">Start</button>
+                    <button class="time reset">Reset</button>
+                    <button class="time record">Save</button>
+                </div>
+                <div class="record-box">
+                    <span>Recorded times</span>
+                    <hr />
+                    <ul class="save-list"></ul>
                 </div>
             </div>
-
-            <div class="btns">
-                <button class=" time start">Start</button>
-                <button class=" time stop">Stop</button>
-                <button class=" time reset">Reset</button>
-            </div>
-
         </div>
-
-    </div>
-    <script src="stopwatch.js" charset="utf-8"></script>
-</body>
-
+        <script src="stopwatch.js" charset="utf-8"></script>
+    </body>
 </html>
