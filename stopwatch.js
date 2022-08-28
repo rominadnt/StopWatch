@@ -1,41 +1,58 @@
-let start = document.querySelector(".start");
-let stop = document.querySelector(".stop");
+let toggle = document.querySelector('.toggle');
 let reset = document.querySelector(".reset");
-let hours = document.querySelector(".hour");
-let mins = document.querySelector(".min");
-let secs = document.querySelector(".sec");
-let hour = 0;
-let min = 0;
-let sec = 0;
+let save = document.querySelector(".record");
+let recordedTimes = document.querySelector('.save-list');
+let time = document.querySelector('.text');
+
+let timer = 60 * 10 + 60 * 60 * 3;
+let isActive = false;
 
 let interval;
 
-start.addEventListener("click", function() {
-    interval = setInterval(function() {
-        if (sec < 59) {
-            sec += 1;
-            secs.innerHTML = sec < 10 ? " 0" + sec : sec;
-        } else {
-            sec = 0;
-            secs.innerHTML = sec < 10 ? " 0" + sec : sec;
-            if (min < 59) {
-                min += 1;
-                mins.innerHTML = min < 10 ? "0" + min + ":" : min + ":";
-            } else {
-                hour += 1;
-                hours.innerHTML = hour < 10 ? "0" + hour + ":" : hour + ":";
-            }
-        }
-    }, 1000);
+function getTime(sec) {
+    let min = 0;
+    let hour = 0;
+    if (sec >= 60) {
+        min = Math.floor(sec / 60);
+        sec -= 60 * min;
+    }
+    if (min >= 60) {
+        hour = Math.floor(min / 60);
+        min -= 60 * hour;
+    }
 
-    start.style.pointerEvents = "none";
+    return { sec, min, hour }
+}
+
+function to2Digit(number) {
+    return Number.parseInt(number) >= 10 ? number.toString() : `0${number}`;
+}
+
+function timeToString() {
+    const { hour, min, sec } = getTime(timer);
+    return `${to2Digit(hour)}:${to2Digit(min)}:${to2Digit(sec)}`;
+}
+
+toggle.addEventListener('click', function () {
+    if (!interval) {
+        interval = setInterval(function () {
+            timer++;
+            time.innerHTML = timeToString();
+        }, 1000);
+    } else {
+        clearInterval(interval);
+        interval = undefined;
+    }
+    toggle.innerHTML = interval ? 'Stop' : 'Start';
 });
 
-stop.addEventListener("click", function() {
-    clearInterval(interval);
-    start.style.pointerEvents = "visible";
+reset.addEventListener("click", function () {
+    timer = 0;
+    timeToString();
 });
 
-reset.addEventListener("click", function() {
-    location.reload();
+save.addEventListener('click', function () {
+    const li = document.createElement('li');
+    li.innerHTML = timeToString();
+    recordedTimes.prepend(li);
 });
