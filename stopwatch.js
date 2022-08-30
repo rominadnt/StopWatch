@@ -4,7 +4,7 @@ let save = document.querySelector(".record");
 let recordedTimes = document.querySelector('.save-list');
 let time = document.querySelector('.text');
 
-let timer = 60 * 10 + 60 * 60 * 3;
+let timer = 0;
 let isActive = false;
 
 let interval;
